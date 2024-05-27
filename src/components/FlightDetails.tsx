@@ -41,7 +41,7 @@ function FlightDetails({
 
       <div className="flex flex-col p-4 bg-white rounded-lg max-md:max-w-full">
         {flightDetails.segments.map((segment) => (
-          <FlightCard flightInfo={segment} />
+          <FlightCard flightInfo={segment} key={segment.segment} />
         ))}
       </div>
     </div>

@@ -4,20 +4,44 @@ import Plane from "@/icons/Plane";
 import Airlines from "@/icons/ Airlines";
 import Info from "@/icons/Info";
 
-function FlightCard({ destination }) {
-  if (destination) {
+export type FlightInfoProps = {
+  segment: string;
+  duration: string;
+  from: string;
+  to: string;
+  fromTime: string;
+  fromDate: string;
+  toTime: string;
+  toDate: string;
+  airline: string;
+  flightNumber: string;
+  aircraft: string;
+  cabinClass: string;
+  isDestination: boolean;
+  airport: string;
+  segmentName: string;
+  terminal: string;
+  notice: string;
+};
+
+function FlightCard({ flightInfo }: { flightInfo: FlightInfoProps }) {
+  if (flightInfo.isDestination) {
     return (
-      <div className="flex gap-3 py-1 text-sm max-md:flex-wrap items-center">
-        <div className="text-primary">
+      <div className="flex gap-2 py-1 text-sm max-md:flex-wrap items-center">
+        <div className="text-primary ml-1">
           <Location />
         </div>
         <div className="flex flex-1 gap-2 px-4 pt-2.5 pb-3 rounded-md bg-slate-100 max-md:flex-wrap">
           <div className="flex-1 font-[475] leading-[138%] text-[#1A2B3D] text-sm">
-            Departure from Dhaka
+            {flightInfo.segmentName}
           </div>
           <div className="flex-1 leading-[18px] text-right text-gray-500 text-ellipsis text-sm">
-            <span className="font-[475] text-gray-500">Terminal 1:</span>
-            <span>Hazrat Shahjalal International Airport</span>
+            {flightInfo.terminal && (
+              <span className="font-[475] text-gray-500">
+                {flightInfo.terminal}:
+              </span>
+            )}
+            <span>{flightInfo.airport}</span>
           </div>
         </div>
       </div>
@@ -32,11 +56,15 @@ function FlightCard({ destination }) {
         </div>
         <div className="flex flex-1 gap-2 px-4 pt-2.5 pb-3 rounded-md bg-slate-100 max-md:flex-wrap">
           <div className="flex-1 font-[475] leading-[138%] text-[#1A2B3D] text-sm">
-            Departure from Dhaka
+            {flightInfo.segmentName}
           </div>
           <div className="flex-1 leading-[18px] text-right text-gray-500 text-ellipsis text-sm">
-            <span className="font-[475] text-gray-500">Terminal 1:</span>
-            <span>Hazrat Shahjalal International Airport</span>
+            {flightInfo.terminal && (
+              <span className="font-[475] text-gray-500">
+                {flightInfo.terminal}:
+              </span>
+            )}
+            <span>{flightInfo.airport}</span>
           </div>
         </div>
       </div>
@@ -48,24 +76,26 @@ function FlightCard({ destination }) {
         <div className="flex justify-between flex-1">
           <div>
             <div className="text-base font-semibold leading-6 text-slate-800">
-              DAC - DXB
-            </div>
-            <div className="text-sm leading-5 text-gray-500">12 hr 20 min</div>
-          </div>
-          <div>
-            <div className="text-base font-semibold leading-6 text-slate-800">
-              07:30 PM
+              {flightInfo.from} - {flightInfo.to}
             </div>
             <div className="text-sm leading-5 text-gray-500">
-              28 Mar, Friday
+              {flightInfo.duration}
             </div>
           </div>
           <div>
             <div className="text-base font-semibold leading-6 text-slate-800">
-              08:50 AM
+              {flightInfo.fromTime}
             </div>
             <div className="text-sm leading-5 text-gray-500">
-              29 Mar, Saturday
+              {flightInfo.fromDate}
+            </div>
+          </div>
+          <div>
+            <div className="text-base font-semibold leading-6 text-slate-800">
+              {flightInfo.toTime}
+            </div>
+            <div className="text-sm leading-5 text-gray-500">
+              {flightInfo.toDate}
             </div>
           </div>
           <div></div>
@@ -85,29 +115,33 @@ function FlightCard({ destination }) {
           <div className="flex gap-3 pr-20 text-sm max-md:flex-wrap max-md:pr-5">
             <div className="flex flex-col flex-1">
               <div className="text-gray-700 whitespace-nowrap font-[475] text-ellipsis">
-                Turkish Airlines
+                {flightInfo.airline}
               </div>
-              <div className="mt-1.5 text-gray-500">Flight no : TUR467</div>
+              <div className="mt-1.5 text-gray-500">
+                Flight no : {flightInfo.flightNumber}
+              </div>
             </div>
             <div className="flex flex-col flex-1 justify-center text-gray-500">
               <div className="whitespace-nowrap text-ellipsis">
-                Airbus Industrie 737-800-738
+                {flightInfo.aircraft}
               </div>
               <div className="mt-1.5 leading-5">
-                Class :{" "}
-                <span className="text-gray-500 font-[475]">ECONOMY-Y (O)</span>
+                Class :
+                <span className="text-gray-500 font-[475]">
+                  {flightInfo.cabinClass}
+                </span>
               </div>
             </div>
             <div className="flex flex-col flex-1 justify-center text-gray-500"></div>
           </div>
-          <div className="flex gap-2 px-3 py-2 mt-4 text-xs leading-4 text-gray-700 bg-orange-100 rounded-md border border-amber-100 border-solid max-md:flex-wrap">
-            <Info />
-            <div className="flex-1 max-md:max-w-full">
-              Technical stoppage at Malpensa International Airport (Milano).
-              Before booking this flight please check your visa requirements as
-              per your nationality
+          {flightInfo.notice && (
+            <div className="flex gap-2 px-3 py-2 mt-4 text-xs leading-4 text-gray-700 bg-orange-100 rounded-md border border-amber-100 border-solid max-md:flex-wrap">
+              <Info />
+              <div className="flex-1 max-md:max-w-full">
+                {flightInfo.notice}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
